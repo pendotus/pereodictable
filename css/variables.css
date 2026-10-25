@@ -1,0 +1,28 @@
+/* Подключение локального шрифта IBM 3270 */
+@font-face {
+  font-family: 'IBM 3270';
+  src: url('../fonts/IBM3270-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Цветовая палитра */
+  --bg-ide: #000000;
+  --text-primary: #FFFFFF;
+  --text-muted: #5C5C5C;
+  --gutter-border: #383838;
+  --syntax-tag: #17517E;
+  --accent-orange: #FF6B00;
+  --cell-hover-bg: rgba(255, 107, 0, 0.14);
+
+  /* Типографика: основной шрифт теперь IBM 3270 */
+  --font-mono: 'IBM 3270', monospace;
+  --ide-line-height: 26px;
+  --ide-font-size: 21px;
+  --ide-h1-size: 16.5px;
+
+  --table-font-size: 14px;
+  --table-line-height: 14.68px;
+}

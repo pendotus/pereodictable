@@ -1,0 +1,293 @@
+.periodic-table-scroll {
+  margin-top: 2px;
+  user-select: none;
+}
+
+/* Важно: white-space: normal на контейнере исключает появление пустых строк из-за переносов в шаблонах */
+.ascii-table-canvas {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--table-font-size);
+  line-height: var(--table-line-height);
+  white-space: normal;
+  color: var(--text-primary);
+}
+
+/* Каждая отдельная ASCII-строка жестко фиксирована по высоте и сохраняет пробелы */
+.ascii-row {
+  display: block;
+  height: var(--table-line-height);
+  line-height: var(--table-line-height);
+  white-space: pre;
+}
+
+/* Токены границ (+, -, |) */
+.b-tok {
+  transition: color 0.12s ease;
+}
+
+.b-tok.is-highlighted {
+  color: var(--accent-orange);
+}
+
+/* Интерактивные срезы ячеек */
+.el-slice {
+  display: inline-block;
+  height: var(--table-line-height);
+  line-height: var(--table-line-height);
+  padding: 0;
+  margin: 0;
+  color: var(--text-primary);
+  background: transparent;
+  cursor: pointer;
+  white-space: pre;
+  vertical-align: top;
+  transition: color 0.12s ease, background-color 0.12s ease;
+}
+
+.el-slice.is-highlighted {
+  color: var(--accent-orange);
+}
+
+.el-slice.is-hovered {
+  color: var(--accent-orange);
+  background-color: var(--cell-hover-bg);
+}
+
+/* ==========================================================================
+   ОВЕРЛЕЙ ЭЛЕМЕНТА (по макету Оверлей.png)
+   ========================================================================== */
+.element-overlay-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+  padding: 32px 48px;
+  overflow-y: auto;
+}
+
+.element-overlay-backdrop.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.overlay-frame {
+  width: min(1240px, 100%);
+  min-height: min(680px, 90vh);
+  background-color: #000000;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Верхняя панель управления оверлеем (ненавязчивая навигация в стиле IDE) */
+.overlay-toolbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 15px;
+  color: var(--text-muted);
+}
+
+.overlay-nav-btn,
+.overlay-close-btn {
+  color: var(--text-muted);
+  padding: 4px 8px;
+  transition: color 0.14s ease;
+}
+
+.overlay-nav-btn:hover,
+.overlay-close-btn:hover {
+  color: var(--accent-orange);
+}
+
+/* Главная двухколоночная сетка макета Оверлей.png */
+.overlay-layout {
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  column-gap: 64px;
+  align-items: start;
+}
+
+/* Левая колонка: индекс/символ/масса + названия + ASCII орбиталь */
+.overlay-header-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 54px;
+  margin-bottom: 28px;
+}
+
+.overlay-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.overlay-z-num {
+  font-size: 32px;
+  line-height: 1;
+  font-weight: 400;
+  margin-bottom: 4px;
+}
+
+.overlay-symbol-line {
+  display: flex;
+  align-items: baseline;
+}
+
+.overlay-symbol-char {
+  font-size: 112px;
+  line-height: 0.86;
+  font-weight: 300;
+  letter-spacing: -0.04em;
+}
+
+.overlay-symbol-mass {
+  font-size: 28px;
+  line-height: 1;
+  margin-left: 6px;
+  letter-spacing: 0.02em;
+}
+
+.overlay-subshell-label {
+  margin-top: 26px;
+  margin-left: 4px;
+  font-size: 28px;
+  line-height: 1;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.overlay-titles {
+  padding-top: 52px;
+  font-size: 54px;
+  line-height: 1.16;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+}
+
+.overlay-title-ru,
+.overlay-title-lat {
+  white-space: nowrap;
+}
+
+/* Блок ASCII-орбитали */
+.overlay-orbital-wrap {
+  margin-top: 12px;
+  padding-left: 4px;
+}
+
+
+
+/* Правая колонка: Изотопы */
+.overlay-isotopes-col {
+  padding-top: 60px;
+}
+
+.overlay-isotopes-heading {
+  font-size: 54px;
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: 0.09em;
+  margin-bottom: 24px;
+}
+
+
+
+/* Двухэтажная карточка изотопа: массовое число A строго НАД символом элемента */
+.isotope-card {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.isotope-mass-num {
+  font-size: 27px;
+  line-height: 1;
+  margin-bottom: 2px;
+  padding-left: 1px;
+}
+
+.isotope-bottom-line {
+  display: flex;
+  align-items: baseline;
+}
+
+.isotope-sym {
+  font-size: 56px;
+  line-height: 0.88;
+  font-weight: 300;
+}
+
+.isotope-exact-mass {
+  font-size: 27px;
+  line-height: 1;
+  margin-left: 4px;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 1100px) {
+  .overlay-layout {
+    grid-template-columns: 1fr;
+    row-gap: 40px;
+  }
+  .overlay-isotopes-col {
+    padding-top: 0;
+  }
+}
+
+/* Блок ASCII-орбитали Бора с автоматическим масштабированием под число колец */
+.overlay-orbital-wrap {
+  margin-top: 8px;
+  padding-left: 4px;
+}
+
+.overlay-orbital-art {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  line-height: 1.22;
+  white-space: pre;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+}
+
+/* Для 3-4 электронных оболочек */
+.overlay-orbital-art--compact {
+  font-size: 12.5px;
+  line-height: 1.15;
+}
+
+/* Для 5-7 электронных оболочек (тяжелые элементы) */
+.overlay-orbital-art--dense {
+  font-size: 9.5px;
+  line-height: 1.1;
+}
+
+.overlay-shells-caption {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* Правая колонка: адаптивная многоколоночная сетка под реальное число изотопов (от 2 до 10 штук) */
+.overlay-isotopes-columns {
+  display: grid;
+  grid-template-rows: repeat(4, auto);
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  column-gap: 32px;
+  row-gap: 18px;
+}

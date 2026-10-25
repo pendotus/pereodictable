@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Таблица менделеева — Интерактивный атлас 118 элементов</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/variables.css">
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/ide-layout.css">
+  <link rel="stylesheet" href="./css/periodic-table.css">
+</head>
+<body>
+  <main class="ide-viewport" id="ide-app">
+    <!-- Левая колонка номеров строк (1 - 48) -->
+    <aside class="ide-gutter" id="ide-gutter" aria-hidden="true"></aside>
+
+    <!-- Рабочая область редактора кода и таблицы -->
+    <section class="ide-workspace">
+      <header class="ide-code-header" aria-label="Описание проекта">
+        <!-- Строки 1 - 10 -->
+        <div class="code-line"><span class="ws-dots">····</span> <span class="code-muted">&lt;HTML lang=ru&gt;</span></div>
+        <div class="code-line"><span class="ws-dots">····</span> <span class="code-muted">&lt;head&gt;</span></div>
+        <div class="code-line"><span class="ws-dots">···· ·····</span><span class="code-tag">&lt;title&gt;</span> <span class="code-title-text">Таблица менделеева</span> <span class="code-tag">&lt;/title&gt;</span></div>
+        <div class="code-line"><span class="ws-dots">····</span> <span class="code-muted">&lt;/head&gt;</span></div>
+        <div class="code-line"><span class="ws-dots">····</span> <span class="code-muted">&lt;body&gt;</span></div>
+        <div class="code-line code-line--h1"><span class="ws-dots">····· ·····</span> <span class="code-tag">&lt;H1&gt;</span><h1 class="inline-h1">Интерактивный атлас 118 химических элементов:</h1></div>
+        <div class="code-line code-line--h1"><span class="ws-dots">····· ····· ·····</span><span class="h1-continuation">визуализация атомных орбиталей, энергетических уровней</span></div>
+        <div class="code-line code-line--h1"><span class="ws-dots">····· ····· ·····</span><span class="h1-continuation">фундаментальных констант.</span> <span class="code-tag">&lt;/H1&gt;</span></div>
+        <div class="code-line code-line--empty" aria-hidden="true"></div>
+        <div class="code-line code-line--empty" aria-hidden="true"></div>
+
+        <!-- Строка 11: "Таблица ↓" — декоративный элемент, кнопки — только Неметаллы, Металлы, Полуметаллы -->
+        <div class="code-line ide-filter-bar" id="filter-bar" role="group" aria-label="Фильтр категорий элементов">
+          <span class="ws-dots">····· ·····</span><span class="code-tag">&lt;div&gt;</span>
+          <span class="ide-table-label" aria-hidden="true">Таблица &#8595;</span>
+          <button type="button" class="filter-btn" data-filter="nonmetal">Неметаллы</button>
+          <button type="button" class="filter-btn" data-filter="metal">Металлы</button>
+          <button type="button" class="filter-btn" data-filter="metalloid">Полуметаллы</button>
+        </div>
+      </header>
+
+      <!-- Контейнер интерактивной ASCII-таблицы (Строки 12 - 46) -->
+      <div class="periodic-table-scroll" id="periodic-table-root" role="region" aria-label="Периодическая система химических элементов Д.И. Менделеева"></div>
+    </section>
+  </main>
+
+  <!-- Полноэкранный оверлей элемента (по макету Оверлей.png) -->
+  <div class="element-overlay-backdrop" id="element-overlay" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Карточка химического элемента"></div>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
